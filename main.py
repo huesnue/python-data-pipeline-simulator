@@ -12,31 +12,17 @@ def setup_logger(level="INFO"):
 def parse_args():
     parser = argparse.ArgumentParser(description="Run the modular data pipeline.")
 
-    parser.add_argument(
-        "--input",
-        required=True,
-        help="Path to the input JSON file."
-    )
-
-    parser.add_argument(
-        "--schema",
-        required=True,
-        help="Path to the JSON schema file for validation."
-    )
-
-    parser.add_argument(
-        "--output",
-        required=True,
-        help="Path where the output JSON will be saved."
-    )
+    parser.add_argument("--input", help="Path to the input JSON file.")
+    parser.add_argument("--schema", help="Path to the JSON schema file for validation.")
+    parser.add_argument("--output", help="Path where the output JSON will be saved.")
 
     parser.add_argument(
         "--log-level",
-        default="INFO",
+        default=None,
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         help="Set the logging level."
     )
-    
+
     parser.add_argument(
         "--config",
         help="Optional path to a YAML config file."
@@ -47,20 +33,26 @@ def parse_args():
 
 def main():
     args = parse_args()
-    setup_logger(args.log_level)
 
     # Load config if provided
+    config = None
     if args.config:
         config = ConfigLoader(args.config).load()
-        input_path = config["pipeline"]["input"]
-        schema_path = config["pipeline"]["schema"]
-        output_path = config["pipeline"]["output"]
-        log_level = config["logging"]["level"]
-    else:
-        input_path = args.input
-        schema_path = args.schema
-        output_path = args.output
-        log_level = args.log_level
+
+    # Resolve values: CLI overrides config
+    input_path = args.input or (config["pipeline"]["input"] if config else None)
+    schema_path = args.schema or (config["pipeline"]["schema"] if config else None)
+    output_path = args.output or (config["pipeline"]["output"] if config else None)
+    log_level = args.log_level or (config["logging"]["level"] if config else "INFO")
+
+    # Validate required values
+    if not all([input_path, schema_path, output_path]):
+        raise ValueError(
+            "Missing required parameters. Provide either a config file or CLI arguments."
+        )
+
+    # Initialize logging AFTER resolving config
+    setup_logger(log_level)
 
     pipeline = PipelineManager(
         input_path=input_path,
@@ -76,4 +68,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
