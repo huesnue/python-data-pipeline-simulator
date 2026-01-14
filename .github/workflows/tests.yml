@@ -97,6 +97,12 @@ jobs:
           name: coverage-report
           path: .
 
+      - name: Move coverage.xml to root
+        run: |
+          if [ -f coverage-report/coverage.xml ]; then
+            mv coverage-report/coverage.xml coverage.xml
+          fi
+
       - name: Generate coverage badge
         uses: tj-actions/coverage-badge-py@v2
         with:
@@ -110,6 +116,7 @@ jobs:
           git add coverage-badge.svg
           git commit -m "Update coverage badge" || echo "No changes to commit"
           git push
+
 
 
 
