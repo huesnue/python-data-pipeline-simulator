@@ -1,5 +1,7 @@
 # Python Data Pipeline Simulator
 
+![Coverage](./coverage-badge.svg)
+
 A modular, object-oriented data pipeline simulator built in Python.  
 This project demonstrates how real-world data pipelines are structured internally, including data ingestion, validation, transformation, and pipeline orchestration.  
 It is part of my AI/MLOps engineering training and showcases clean architecture, OOP principles, and production-ready code structure.
