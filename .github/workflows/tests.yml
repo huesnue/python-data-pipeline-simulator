@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Install ruff
         run: pip install ruff
@@ -35,7 +35,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Install dependencies
         run: |
@@ -58,7 +58,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Cache pip
         uses: actions/cache@v4
@@ -91,10 +91,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.12 for badge generation
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with: 
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Download coverage report
         uses: actions/download-artifact@v4
@@ -102,19 +102,11 @@ jobs:
           name: coverage-report
           path: coverage-report
 
-      - name: "Debug: list files"
-        run: |
-          echo "Root directory:"
-          ls -R .
-          echo "Coverage-report directory:"
-          ls -R coverage-report
+      - name: Move coverage.xml to root
+        run: mv coverage-report/coverage.xml coverage.xml
 
       - name: Generate coverage badge
-        uses: tj-actions/coverage-badge-py@v2
-        with:
-          output: coverage-badge.svg
-          overwrite: true
-          working-directory: coverage-report
+        run: python scripts/generate_coverage_badge.py
 
       - name: Commit badge
         run: |
