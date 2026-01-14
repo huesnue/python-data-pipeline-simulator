@@ -109,16 +109,12 @@ jobs:
           echo "Coverage-report directory:"
           ls -R coverage-report
 
-      - name: Move coverage.xml to root
-        run: |
-          mv coverage-report/coverage.xml coverage.xml
-
       - name: Generate coverage badge
         uses: tj-actions/coverage-badge-py@v2
         with:
           output: coverage-badge.svg
           overwrite: true
-          working-directory: .
+          working-directory: coverage-report
 
       - name: Commit badge
         run: |
