@@ -86,6 +86,7 @@ jobs:
   coverage-badge:
     needs: test
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -96,7 +97,7 @@ jobs:
           name: coverage-report
           path: coverage-report
 
-      - name: Debug: list files
+      - name: "Debug: list files"
         run: |
           echo "Root directory:"
           ls -R .
