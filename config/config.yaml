@@ -1,0 +1,7 @@
+pipeline:
+  input: "data/input_sample.json"
+  schema: "data/schema.json"
+  output: "output/result.json"
+
+logging:
+  level: "INFO"

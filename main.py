@@ -35,6 +35,11 @@ def parse_args():
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         help="Set the logging level."
     )
+    
+    parser.add_argument(
+        "--config",
+        help="Optional path to a YAML config file."
+    )
 
     return parser.parse_args()
 
@@ -43,16 +48,29 @@ def main():
     args = parse_args()
     setup_logger(args.log_level)
 
+    # Load config if provided
+    if args.config:
+        config = ConfigLoader(args.config).load()
+        input_path = config["pipeline"]["input"]
+        schema_path = config["pipeline"]["schema"]
+        output_path = config["pipeline"]["output"]
+        log_level = config["logging"]["level"]
+    else:
+        input_path = args.input
+        schema_path = args.schema
+        output_path = args.output
+        log_level = args.log_level
+
     pipeline = PipelineManager(
-        input_path=args.input,
-        schema_path=args.schema,
-        output_path=args.output,
-        log_level=args.log_level
+        input_path=input_path,
+        schema_path=schema_path,
+        output_path=output_path,
+        log_level=log_level
     )
 
     pipeline.run()
     print("Pipeline finished successfully.")
-    print(f"Output saved to: {args.output}")
+    print(f"Output saved to: {output_path}")
 
 
 if __name__ == "__main__":
