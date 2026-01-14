@@ -1,6 +1,7 @@
 import argparse
 import logging
 from src.pipeline_manager import PipelineManager
+from src.config_loader import ConfigLoader
 
 def setup_logger(level="INFO"):
     logging.basicConfig(
