@@ -1,5 +1,4 @@
 import logging
-from src.logger_config import setup_logger
 from src.data_source import DataSource
 from src.data_validator import DataValidator
 from src.data_transformer import DataTransformer

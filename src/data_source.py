@@ -1,5 +1,4 @@
 import json
-import csv
 import logging
 from pathlib import Path
 
@@ -26,7 +25,7 @@ class DataSource:
         except Exception as e:
             raise RuntimeError(f"Unexpected error while loading data: {e}")
         if not isinstance(data, dict):
-            self.logger.error(f"Unexpected error: {e}")
+            self.logger.error("Unexpected error: Loaded JSON is not a dict")
             raise ValueError("Loaded JSON must be an object (Python dict).")     
         return data
         
