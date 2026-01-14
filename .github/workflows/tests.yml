@@ -99,10 +99,17 @@ jobs:
 
       - name: "Debug: list files"
         run: |
-          echo "Root directory:"
-          ls -R .
-          echo "Coverage-report directory:"
-          ls -R coverage-report
+          echo "=== Root directory ==="
+          ls -alh .
+          echo ""
+          echo "=== coverage-report directory ==="
+          ls -alh coverage-report || echo "coverage-report directory does not exist"
+          echo ""
+          echo "=== Find all ZIP files ==="
+          find . -name "*.zip" -type f -print
+          echo ""
+          echo "=== Find coverage.xml anywhere ==="
+          find . -name "coverage.xml" -type f -print
 
       - name: Unzip coverage report
         run: |
