@@ -1,5 +1,5 @@
 import json
-import os
+from pathlib import Path
 import logging
 
 class DataValidator:
@@ -11,12 +11,12 @@ class DataValidator:
     }
 
     def __init__(self, schema_path: str):
-        self.schema_path = schema_path
+        self.schema_path = Path(schema_path)
         self.logger = logging.getLogger(self.__class__.__name__)
     def _load_schema(self):
         self.logger.info(f"Loading schema from {self.schema_path}")
         
-        if not os.path.exists(self.schema_path):
+        if not self.schema_path.exists():
             self.logger.error("Schema file not found")
             raise FileNotFoundError(f"Schema file not found: {self.schema_path}")
         try:

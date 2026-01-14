@@ -1,21 +1,19 @@
 import json
 import csv
-import os
 import logging
-
-
+from pathlib import Path
 
 
 class DataSource:
     def __init__(self, path: str):
-        self.path = path
+        self.path = Path(path)
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def load(self):
         self.logger.info(f"Loading data from {self.path}")
         
         # Check if file exists
-        if not os.path.exists(self.path):
+        if not self.path.exists():
             self.logger.error(f"File not found: {self.path}")
             raise FileNotFoundError(f"The file at path '{self.path}' does not exist.")
         try:     
