@@ -88,20 +88,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download coverage report
         uses: actions/download-artifact@v4
         with:
           name: coverage-report
+          path: .
 
       - name: Generate coverage badge
         uses: tj-actions/coverage-badge-py@v2
-
-      - name: Upload badge
-        uses: actions/upload-artifact@v4
         with:
-          name: coverage-badge
-          path: coverage-badge.svg
-          
+          output: coverage-badge.svg
+          input: coverage.xml
+
       - name: Commit badge
         run: |
           git config --global user.name "github-actions"
@@ -109,6 +110,7 @@ jobs:
           git add coverage-badge.svg
           git commit -m "Update coverage badge" || echo "No changes to commit"
           git push
+
 
 
 
