@@ -1,9 +1,10 @@
 import logging
 class PipelineManager:
-    def __init__(self, data_source, data_validator, data_transformer):
+    def __init__(self, data_source, data_validator, data_transformer, output_writer):
         self.data_source = data_source
         self.data_validator = data_validator
         self.data_transformer = data_transformer
+        self.output_writer = output_writer
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def run(self):
@@ -17,6 +18,7 @@ class PipelineManager:
             
             # 3. Transform data
             transformed_data = self.data_transformer.transform(validated_data)
+            self.output_writer.save(transformed_data)
             
             self.logger.info("Pipeline execution completed successfully")
             # 4. Return final result
