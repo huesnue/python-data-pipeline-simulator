@@ -82,36 +82,3 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
-
-  coverage-badge:
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
-        with: 
-          python-version: "3.14"
-
-      - name: Download coverage report
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage-report
-
-      - name: Move coverage.xml to root
-        run: mv coverage-report/coverage.xml coverage.xml
-
-      - name: Generate coverage badge
-        run: python scripts/generate_coverage_badge.py
-
-      - name: Commit badge
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add coverage-badge.svg
-          git commit -m "Update coverage badge" || echo "No changes to commit"
-          git push
