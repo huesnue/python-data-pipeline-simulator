@@ -106,7 +106,7 @@ jobs:
 
       - name: Unzip coverage report
         run: |
-          unzip coverage-report.zip -d coverage-report
+          unzip coverage-report/coverage-report.zip -d coverage-report
 
       - name: Move coverage.xml to root
         run: |
