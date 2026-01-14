@@ -96,6 +96,19 @@ jobs:
         with:
           name: coverage-report
           path: coverage-report
+  coverage-badge:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download coverage report
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage-report
 
       - name: Debug: list files
         run: |
