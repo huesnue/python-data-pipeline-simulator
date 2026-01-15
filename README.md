@@ -10,10 +10,11 @@ This project demonstrates how real-world data pipelines are structured internall
 
 ## 🚀 Project Overview
 
-Modern machine learning systems rely on robust, maintainable, and well‑structured data pipelines.
-This project simulates the core components of such pipelines using Python and object‑oriented design principles.
+The Python Data Pipeline Simulator is a modular and extensible framework designed to demonstrate how real-world data pipelines are structured, validated, transformed, and orchestrated.  
+It provides a clean, object-oriented architecture that mirrors modern data engineering and MLOps practices.
 
-The simulator models how real-world data pipelines ingest, validate, transform, and route data through clearly defined processing stages. It serves as a foundation for exploring clean architecture, extensibility, and production‑oriented engineering practices within the context of AI/MLOps workflows. 
+The project is built using Python and leverages industry-standard tools such as `pytest` for testing and GitHub Actions for continuous integration and coverage reporting.  
+Its modular design makes it suitable for learning, experimentation, and future expansion into more advanced data workflows.
 
 ---
 
@@ -101,7 +102,7 @@ The pipeline is built around a clean, modular architecture that separates each p
   The modular design enables isolated unit tests for each component.
 
 ### High-Level Data Flow
-
+```
 ┌────────────┐
 │ DataSource │
 └──────┬─────┘
@@ -120,7 +121,7 @@ The pipeline is built around a clean, modular architecture that separates each p
 ┌────────────┐
 │   Writer   │
 └────────────┘
-
+```
 
 The `PipelineManager` coordinates each step and ensures that data flows through the pipeline in a controlled and predictable manner.
 
@@ -246,28 +247,29 @@ Each stage is handled by a dedicated component, ensuring clarity, maintainabilit
 
 ### Visual Overview
 
+```
     Raw Data
        │
        ▼
-┌────────────┐
-│ DataSource │
-└──────┬─────┘
+┌─────────────┐
+│  DataSource │
+└──────┬──────┘
        │
        ▼
-┌────────────┐
-│ Validator  │
-└──────┬─────┘
+┌─────────────┐
+│  Validator  │
+└──────┬──────┘
        │
        ▼
-┌────────────┐
-│ Transformer│
-└──────┬─────┘
+┌─────────────┐
+│ Transformer │
+└──────┬──────┘
        │
        ▼
-┌────────────┐
-│   Writer   │
-└────────────┘
-
+┌─────────────┐
+│    Writer   │
+└─────────────┘
+```
 
 ### Execution Summary
 
@@ -516,89 +518,4 @@ This project is licensed under the MIT License.
 You are free to use, modify, distribute, and integrate the code in personal or commercial projects, provided that the original license notice is included.
 
 See the `LICENSE` file for full details.
-
-
-
----
-
-## 🛠️ Technologies Used
-
-- Python 3.x  
-- OOP design patterns  
-- JSON & CSV handling  
-- Logging  
-- (Optional) Pandas, NumPy  
-- (Optional) Pytest for unit tests  
-
----
-
-## ▶️ How to Run
-
-1. Clone the repository:
-
-```
-git clone `https://github.com/huesnue/python-data-pipeline-simulator.git` [(github.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fgithub.com%2Fhuesnue%2Fpython-data-pipeline-simulator.git")
-cd python-data-pipeline-simulator
-```
-
-2. Install dependencies:
-
-```
-pip install -r requirements.txt
-```
-
-3. Run the pipeline:
-
-```python
-from src.pipeline_manager import PipelineManager
-from src.data_source import DataSource
-from src.data_validator import DataValidator
-from src.data_transformer import DataTransformer
-
-pipeline = PipelineManager(
-    source=DataSource("data/input_sample.json"),
-    validator=DataValidator("data/schema.json"),
-    transformer=DataTransformer()
-)
-
-pipeline.run()
-```
-
----
-
-## 📐 Architecture
-
-The pipeline follows a clean, modular architecture:
-
-```
-DataSource → DataValidator → DataTransformer → PipelineManager
-```
-
-Each component is isolated and testable.
-
----
-
-## 📚 What I Learned
-
-- Designing maintainable Python modules  
-- Applying OOP principles to real-world data workflows  
-- Implementing schema validation and transformation logic  
-- Structuring ML/MLOps‑ready pipelines  
-- Writing clean, extensible, production‑style code  
-
----
-
-## 🔮 Future Extensions
-
-- Add CLI interface  
-- Add database connectors (SQL, NoSQL)  
-- Add parallel processing  
-- Add unit tests for all components  
-- Add integration with cloud storage (S3, GCS, Azure Blob)  
-
----
-
-## 📄 License
-
-MIT License
 
