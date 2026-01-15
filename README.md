@@ -2,9 +2,9 @@
 
 ![Coverage](coverage-badge.svg)
 
-A modular, object-oriented data pipeline simulator built in Python.  
-This project demonstrates how real-world data pipelines are structured internally, including data ingestion, validation, transformation, and pipeline orchestration.  
-It is part of my AI/MLOps engineering training and showcases clean architecture, OOP principles, and production-ready code structure.
+A modular, object-oriented data pipeline simulator built in Python.
+
+This project demonstrates how real-world data pipelines are structured internally, including data ingestion, validation, transformation, and pipeline orchestration. It is part of my AI/MLOps engineering journey and reflects a focus on clean architecture, clear separation of concerns, and production-oriented engineering practices.
 
 ---
 
@@ -19,6 +19,15 @@ The goal is to demonstrate:
 - Separation of concerns across pipeline stages  
 - Error handling and validation logic  
 - Extensibility for future ML/MLOps workflows  
+
+---
+
+## Project Goals
+
+- Provide a realistic and extensible simulation of a data pipeline architecture
+- Demonstrate best practices in Python, object-oriented design, testing, and CI/CD
+- Establish a solid foundation for future components (additional data sources, validators, transformers, writers)
+- Offer a structured and maintainable codebase suitable for learning, experimentation, and further development
 
 ---
 
