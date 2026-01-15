@@ -104,18 +104,18 @@ The pipeline is built around a clean, modular architecture that separates each p
 ┌────────────┐
 │ DataSource │
 └──────┬─────┘
-       │
-       ▼
+│
+▼
 ┌────────────┐
 │ Validator  │
 └──────┬─────┘
-       │
-       ▼
+│
+▼
 ┌────────────┐
 │ Transformer│
 └──────┬─────┘
-       │
-       ▼
+│
+▼
 ┌────────────┐
 │   Writer   │
 └────────────┘
