@@ -101,21 +101,22 @@ The pipeline is built around a clean, modular architecture that separates each p
   The modular design enables isolated unit tests for each component.
 
 ### High-Level Data Flow
+
 ┌────────────┐
 │ DataSource │
 └──────┬─────┘
-│
-▼
+		│
+		▼
 ┌────────────┐
 │ Validator  │
 └──────┬─────┘
-│
-▼
+		│
+		▼
 ┌────────────┐
 │ Transformer│
 └──────┬─────┘
-│
-▼
+		│
+		▼
 ┌────────────┐
 │   Writer   │
 └────────────┘
