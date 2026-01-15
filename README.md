@@ -288,44 +288,236 @@ git clone https://github.com/huesnue/python-data-pipeline-simulator
 cd python-data-pipeline-simulator
 pip install -r requirements.txt
 
+The project uses standard Python dependencies and does not require any additional setup.
+```
+---
+
+## ▶️ Usage
+
+The following example demonstrates how to initialize and run the pipeline using the core components.
+
+```python
+from pipeline_manager import PipelineManager
+from data_source import DataSource
+from data_validator import DataValidator
+from data_transformer import DataTransformer
+from writer import Writer
+
+# Initialize pipeline components
+source = DataSource("data/input_sample.json")
+validator = DataValidator("data/schema.json")
+transformer = DataTransformer()
+writer = Writer("data/output.json")
+
+# Create and run the pipeline
+pipeline = PipelineManager(
+    source=source,
+    validator=validator,
+    transformer=transformer,
+    writer=writer
+)
+
+pipeline.run()
+
+```
+Running the script executes the full workflow:
+
+load → validate → transform → write
 
 ---
 
-## 📁 Project Structure
+## ⚙️ Configuration (optional)
+
+The pipeline currently uses direct Python class initialization for all configuration parameters  
+(e.g., file paths, schema locations, and output destinations).
+
+A dedicated configuration layer is planned for future versions.  
+This will allow the pipeline to be configured using:
+
+- JSON or YAML configuration files  
+- Environment variables  
+- CLI arguments  
+- Centralized settings for data sources, validators, transformers, and writers  
+
+This design will make the pipeline easier to customize, automate, and integrate into larger ML/MLOps workflows.
+
+---
+
+## 🧪 Tests & Coverage
+
+The project includes a growing suite of unit tests that validate the core functionality of each pipeline component.  
+Tests are designed to be isolated, deterministic, and easy to extend as new features are added.
+
+### Running Tests
+
+Use the following command to execute all tests:
+
+```bash
+pytest
+```
+
+Test Structure
+Tests are organized by component:
+
+Test Structure
+Tests are organized by component:
+
+tests/
+│
+├── test_data_source.py
+├── test_data_validator.py
+├── test_data_transformer.py
+├── test_pipeline_manager.py
+└── ...
+
+Each test module focuses on a single responsibility, mirroring the structure of the source code.
+
+Coverage Reporting
+Test coverage is automatically measured and published through GitHub Actions.
+A coverage badge is generated on each successful run and displayed in the README.
+
+To generate a local coverage report:
+```bash
+pytest --cov=src --cov-report=term-missing
+```
+
+This provides a detailed breakdown of which lines and branches are covered.
+
+CI Integration
+All tests run automatically on every push and pull request.
+If any test fails, the CI pipeline blocks the merge to ensure code quality and stability.
+
+---
+
+## 🔁 CI/CD
+
+The project includes a GitHub Actions workflow that automatically runs tests and generates a coverage report on every push and pull request. This ensures consistent code quality and prevents regressions.
+
+### What the CI Pipeline Does
+
+- Installs project dependencies  
+- Runs the full test suite using `pytest`  
+- Measures code coverage  
+- Generates and updates the coverage badge  
+- Blocks merges if tests fail  
+
+### Workflow Location
+
+The CI configuration is stored in:
+.github/workflows/tests.yml
+
+
+### Benefits
+
+- Ensures reliable and repeatable test execution  
+- Provides immediate feedback on code changes  
+- Maintains high code quality through automated checks  
+- Makes the project suitable for professional engineering workflows  
+
+---
+
+## 📂 Project Structure
+
+The project follows a clean and modular layout that mirrors the architecture of the pipeline.  
+Each component is placed in its own file to ensure clarity, maintainability, and extensibility.
 
 ```
 python-data-pipeline-simulator/
 │
 ├── src/
-│   ├── data_source.py
-│   ├── data_validator.py
-│   ├── data_transformer.py
-│   ├── pipeline_manager.py
+│   ├── data_source.py         # Loads raw input data   
+│   ├── data_validator.py      # Validates structure and content
+│   ├── data_transformer.py    # Applies transformations
+│   ├── pipeline_manager.py    # Orchestrates the pipeline flow
+│   ├── writer.py              # Writes output data
 │   └── __init__.py
 │
-├── data/
-│   ├── input_sample.json
-│   ├── input_sample.csv
-│   └── schema.json
+├── scripts/
+│   └── generate_coverage_badge.py   # Script used by CI to generate the
+coverage badge
+│
+├── config/
+│   ├── pipeline_config.yaml    # Future configuration file (optional)
+│   └── logging.yaml             # Logging configuration (optional)
 │
 ├── tests/
 │   ├── test_data_source.py
 │   ├── test_data_validator.py
 │   ├── test_data_transformer.py
 │   └── test_pipeline_manager.py
+│   └── ...
 │
-├── notebooks/
-│   └── exploration.ipynb
+├── data/
+│   ├── input_sample.json       # Example input data
+│   ├── schema.json              # Example validation schema
+│   └── output.json              # Example output file
 │
-├── docs/
-│   ├── architecture_diagram.png
-│   ├── pipeline_flow.md
-│   └── class_design.md
+├── .github/
+│   └── workflows/
+│       └── tests.yml            # CI pipeline for tests & coverage
 │
-├── README.md
 ├── requirements.txt
-└── .gitignore
+├── README.md
+└── coverage-badge.svg
 ```
+
+---
+
+## 🗺️ Roadmap
+
+The project is designed to grow over time.  
+Future enhancements will focus on expanding functionality, improving configurability, and enabling more advanced data‑engineering and MLOps workflows.
+
+### Planned Enhancements
+
+- **Additional Data Sources**  
+  Support for APIs, SQL databases, cloud storage, and streaming inputs.
+
+- **Schema-Based Validation**  
+  Integration of JSON Schema or Pydantic for more robust validation.
+
+- **Advanced Transformation Layer**  
+  Support for chained transformations, reusable transformation blocks, and domain-specific logic.
+
+- **Config-Driven Pipeline**  
+  YAML/JSON configuration files to define pipeline components, paths, and parameters.
+
+- **CLI Interface**  
+  A command-line tool to run pipelines, validate configs, and inspect outputs.
+
+- **Improved Logging**  
+  Structured logging with configurable log levels and optional file output.
+
+- **Dockerization**  
+  Containerized execution for reproducibility and deployment.
+
+- **Pipeline Visualization**  
+  Graph-based visualization of pipeline stages and data flow.
+
+- **Integration Tests**  
+  End-to-end tests covering full pipeline execution.
+
+### Long-Term Ideas
+
+- **Plugin System**  
+  Allow users to register custom components dynamically.
+
+- **Web Dashboard**  
+  A lightweight UI to run pipelines, inspect logs, and view results.
+
+- **MLOps Extensions**  
+  Hooks for model training, feature engineering, and monitoring.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.  
+You are free to use, modify, distribute, and integrate the code in personal or commercial projects, provided that the original license notice is included.
+
+See the `LICENSE` file for full details.
+
+
 
 ---
 
